@@ -12,11 +12,13 @@
     <div class="d-flex justify-content-center align-items-center h-100 content">
         <div class="d-flex flex-column align-items-center">
             <img src="img/logo.png" class="img-fluid mb-4" width="90%">
-            <label for="username" class="fw-bold mt-4">User</label>
-            <input type="text" class="form-control" id="username">
-            <label for="password" class="fw-bold">Password</label>
-            <input type="text" class="form-control" id="password">
-            <button class="btn btn-dark mt-4">LOGIN</button>
+            <form method="POST" action="action/login_action.php">
+                <label for="username" class="fw-bold mt-4">User</label>
+                <input type="text" class="form-control" id="username" name="username">
+                <label for="password" class="fw-bold">Password</label>
+                <input type="text" class="form-control" id="password" name="password">
+                <button type="submit" class="btn btn-dark mt-4">LOGIN</button>
+            </form>
         </div>
     </div>
     <script src="bootstrap/bootstrap.min.js"></script>
