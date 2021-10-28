@@ -4,3 +4,18 @@ body {
 .content {
     border: 0.1em solid black;
 }
+.bg-blue {
+    background-color: #8fabdd;
+}
+.bg-green {
+    background-color: #a8d18d;
+}
+.bg-yellow {
+    background-color: #ffff01;
+}
+.bg-blue-2 {
+    background-color: #01b0f0;
+}
+.bg-red {
+    background-color: #fd0100;
+}
