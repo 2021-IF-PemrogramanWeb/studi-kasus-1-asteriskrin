@@ -1,5 +1,6 @@
 <?php
     include 'action/class/Interlock.php';
+    include 'action/class/InterlockDis.php';
     $interlocks = new Interlock();
     $interlock_datas = $interlocks->getData();
 ?>
@@ -55,8 +56,8 @@
                             <td><?php echo $d['i_timeon']; ?></td>
                             <td><?php echo $d['i_timeoff']; ?></td>
                             <td>
-                                Act: <?php echo $d['u_username']; ?><br>
-                                Dis: Rizaldy, Gathot
+                                Act: <?php echo $d['u_name']; ?><br>
+                                Dis: <?php foreach (InterlockDis::getDisses($d['i_id']) as $interlock_dis) { echo $interlock_dis->u_name.', '; } ?>
                             </td>
                             <td>
                                 <?php echo $d['i_reasonid'].'. '.$interlocks->getReason($d['i_reasonid']); ?>

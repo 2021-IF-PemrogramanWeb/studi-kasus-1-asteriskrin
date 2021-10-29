@@ -24,7 +24,7 @@
         }
         public function getData() {
             include 'action/conn.php';
-            $query = "SELECT i.i_id, i.i_timeon, i.i_timeoff, u.u_username, i.i_reasonid FROM interlocks i, users u WHERE i.i_ack = u.u_id";
+            $query = "SELECT i.i_id, i.i_timeon, i.i_timeoff, u.u_name, i.i_reasonid FROM interlocks i, users u WHERE i.i_ack = u.u_id";
     
             $result = $conn->query($query);
             if ($result->num_rows > 0) {
