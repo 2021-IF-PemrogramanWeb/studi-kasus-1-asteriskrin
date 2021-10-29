@@ -1,3 +1,9 @@
+<?php
+    include 'action/class/Interlock.php';
+    $interlocks = new Interlock();
+    $interlock_datas = $interlocks->getData();
+    $interlock_stats = $interlocks->getReasonStats();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,10 +32,10 @@
     <script src="js/Chart.min.js"></script>
     <script>
         var areaChartData = {
-            labels  : ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'],
+            labels  : [<?php for ($id = 1; $id <= 16; $id++) echo $id.','; ?>],
             datasets: [
             {
-                label               : 'Label 1',
+                label               : 'Reason',
                 backgroundColor     : '#33ccff',
                 borderColor         : 'rgba(210, 214, 222, 1)',
                 pointRadius         : false,
@@ -37,7 +43,7 @@
                 pointStrokeColor    : '#c1c7d1',
                 pointHighlightFill  : '#fff',
                 pointHighlightStroke: 'rgba(220,220,220,1)',
-                data                : [1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 9, 10, 11, 12, 12, 13, 13, 13, 14, 14, 15, 16, 16, 16, 16, 16, 16, 16, 16, 16]
+                data                : [<?php foreach ($interlock_stats as $x) { echo $x.', '; } ?>]
             },
             ]
         };

@@ -37,5 +37,20 @@
             $conn->close();
             return $data;
         }
+        public function countReason($reasonid) {
+            include 'action/conn.php';
+            $query = "SELECT COUNT(i_id) FROM interlocks WHERE i_reasonid = ".$reasonid;
+            $result = $conn->query($query);
+            $data = $result->fetch_row();
+            $conn->close();
+            return $data[0];
+        }
+        public function getReasonStats() {
+            $data = [];
+            for ($rid = 1; $rid <= 16; $rid++) {
+                array_push($data, $this->countReason($rid));
+            }
+            return $data;
+        }
     }
 ?>
