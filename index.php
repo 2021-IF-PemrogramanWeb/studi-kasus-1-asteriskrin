@@ -1,7 +1,16 @@
 <?php
     require_once 'src/Classes.php';
     use Garnet\App\Model\Interlock as Interlock;
-    $interlocks = Interlock::all();
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    // If not logged in
+    if (!isset($_SESSION['user'])) {
+        echo 'Anda belum login.<br><a href="login.php">Pergi ke halaman login</a>';
+    }
+    else {
+        $interlocks = Interlock::all();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +42,7 @@
                     <div class="align-self-center d-flex flex-column justify-content-center gap-4">
                         <a href="grafik.php" class="btn bg-yellow">Graph</a>
                         <a class="btn bg-blue-2">Export</a>
-                        <a class="btn bg-red">Logout</a>
+                        <a href="logout.php" class="btn bg-red">Logout</a>
                     </div>
                 </div>
             </div>
@@ -82,3 +91,4 @@
     <script src="bootstrap/bootstrap.min.js"></script>
 </body>
 </html>
+<?php } ?>

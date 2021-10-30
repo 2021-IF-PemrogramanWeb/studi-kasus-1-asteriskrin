@@ -45,7 +45,7 @@
             $query .= $data[$size - 1];
             $query .= " FROM ".$table." ";
 
-            $where_clause_size = count($where_clauses) / 3;
+            $where_clause_size = count($where_clauses);
             if ($where_clause_size > 0) {
                 $query .= "WHERE ";
                 for ($i = 0; $i < $where_clause_size - 1; $i++) $query .= $where_clauses[$i][0]." ".$where_clauses[$i][1]." ".$where_clauses[$i][2]." AND ";

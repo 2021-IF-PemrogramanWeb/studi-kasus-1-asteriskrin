@@ -1,3 +1,13 @@
+<?php
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    // If logged in
+    if (isset($_SESSION['user'])) {
+        echo 'Anda sudah login.<br><a href="index.php">Pergi ke halaman index</a>';
+    }
+    else {
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +22,7 @@
     <div class="d-flex justify-content-center align-items-center h-100 content">
         <div class="d-flex flex-column align-items-center">
             <img src="img/logo.png" class="img-fluid mb-4" width="90%">
-            <form method="POST" action="action/login_action.php">
+            <form method="POST" action="login_action.php">
                 <label for="username" class="fw-bold mt-4">User</label>
                 <input type="text" class="form-control" id="username" name="username">
                 <label for="password" class="fw-bold">Password</label>
@@ -24,3 +34,4 @@
     <script src="bootstrap/bootstrap.min.js"></script>
 </body>
 </html>
+<?php } ?>

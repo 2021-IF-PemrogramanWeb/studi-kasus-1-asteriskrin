@@ -1,7 +1,16 @@
 <?php
     require_once 'src/Classes.php';
     use Garnet\App\Model\Interlock as Interlock;
-    $interlock_stats = Interlock::getReasonStats();
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    // If not logged in
+    if (!isset($_SESSION['user'])) {
+        echo 'Anda belum login.<br><a href="login.php">Pergi ke halaman login</a>';
+    }
+    else {
+        $interlock_stats = Interlock::getReasonStats();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,3 +75,4 @@
     </script>
 </body>
 </html>
+<?php } ?>
