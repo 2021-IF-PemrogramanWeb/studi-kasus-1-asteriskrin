@@ -64,7 +64,10 @@
                             <td><?php echo $interlock->i_timeon; ?></td>
                             <td><?php echo $interlock->i_timeoff; ?></td>
                             <td>
-                                Act: <?php echo $interlock->ack_user()->u_name; ?><br>
+                                <?php 
+                                    $act = $interlock->ack_user();
+                                    if ($act != NULL) echo "Act: ".$act->u_name."<br>";
+                                ?>
                                 <?php
                                     $interlock_disses = $interlock->disses();
                                     if ($interlock_disses != NULL) {

@@ -33,6 +33,7 @@
             return $reason;
         }
         public function ack_user() {
+            if ($this->i_ack == NULL) return NULL;
             $user = User::find($this->i_ack);
             return $user;
         }

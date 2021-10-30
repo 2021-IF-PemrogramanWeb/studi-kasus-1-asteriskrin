@@ -13,12 +13,13 @@
         }
         
         public static function find($id) {
-            $db = new DB();
-            $result = $db->select(static::$table, static::$selectable, [
+            $result = self::select(static::$selectable, [
                 [static::$primary_key, "=", $id]
             ]);
-            $db->disconnect();
-            return new static($result[0]);
+            if ($result) {
+                return $result[0];
+            }
+            else return NULL;
         }
 
         public static function select($columns, $where = []) {
