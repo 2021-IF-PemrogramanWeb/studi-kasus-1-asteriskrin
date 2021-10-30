@@ -1,8 +1,7 @@
 <?php
-    include 'action/class/Interlock.php';
-    include 'action/class/InterlockDis.php';
-    $interlocks = new Interlock();
-    $interlock_datas = $interlocks->getData();
+    require_once 'src/Classes.php';
+    use Garnet\App\Model\Interlock as Interlock;
+    $interlocks = Interlock::all();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +18,7 @@
         <div class="d-flex">
             <img src="img/logo.png" class="flex-grow-0">
             <div class="flex-grow-1">
-                <button class="btn btn-dark float-end">Tgl Hari ini</button>
+                <button class="btn btn-dark float-end"><?= date('Y/m/d') ?></button>
             </div>
         </div>
         <div class="row mt-4">
@@ -32,7 +31,7 @@
                         Mobil 2
                     </div>
                     <div class="align-self-center d-flex flex-column justify-content-center gap-4">
-                        <a href="grafik.html" class="btn bg-yellow">Graph</a>
+                        <a href="grafik.php" class="btn bg-yellow">Graph</a>
                         <a class="btn bg-blue-2">Export</a>
                         <a class="btn bg-red">Logout</a>
                     </div>
@@ -50,17 +49,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($interlock_datas as $d) { ?>
+                        <?php foreach ($interlocks as $interlock) { ?>
                         <tr>
-                            <td><?php echo $d['i_id']; ?></td>
-                            <td><?php echo $d['i_timeon']; ?></td>
-                            <td><?php echo $d['i_timeoff']; ?></td>
+                            <td><?php echo $interlock->i_id; ?></td>
+                            <td><?php echo $interlock->i_timeon; ?></td>
+                            <td><?php echo $interlock->i_timeoff; ?></td>
                             <td>
-                                Act: <?php echo $d['u_name']; ?><br>
-                                Dis: <?php foreach (InterlockDis::getDisses($d['i_id']) as $interlock_dis) { echo $interlock_dis->u_name.', '; } ?>
+                                Act: <?php echo $interlock->ack_user()->u_name; ?><br>
+                                <?php
+                                    $interlock_disses = $interlock->disses();
+                                    if ($interlock_disses != NULL) {
+                                        echo "Dis: ";
+                                        $size = count($interlock_disses);
+                                        for ($i = 0; $i < $size - 1; $i++) {
+                                            echo $interlock_disses[$i]->user()->u_name;
+                                            echo ', ';
+                                        }
+                                        echo $interlock_disses[$size-1]->user()->u_name;
+                                    }
+                                ?>
                             </td>
                             <td>
-                                <?php echo $d['i_reasonid'].'. '.$interlocks->getReason($d['i_reasonid']); ?>
+                                <?php echo $interlock->i_reasonid.'. '.Interlock::getReason($interlock->i_reasonid); ?>
                             </td>
                         </tr>
                         <?php } ?>

@@ -1,8 +1,7 @@
 <?php
-    include 'action/class/Interlock.php';
-    $interlocks = new Interlock();
-    $interlock_datas = $interlocks->getData();
-    $interlock_stats = $interlocks->getReasonStats();
+    require_once 'src/Classes.php';
+    use Garnet\App\Model\Interlock as Interlock;
+    $interlock_stats = Interlock::getReasonStats();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +18,7 @@
         <div class="d-flex">
             <img src="img/logo.png" class="flex-grow-0">
             <div class="flex-grow-1">
-                <button class="btn btn-dark float-end">Tgl Hari ini</button>
+                <button class="btn btn-dark float-end"><?= date('Y/m/d') ?></button>
             </div>
         </div>
         <div>

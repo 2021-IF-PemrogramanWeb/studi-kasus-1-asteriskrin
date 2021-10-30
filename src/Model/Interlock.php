@@ -1,6 +1,16 @@
 <?php
-    class Interlock {
-        public function getReason($id) {
+    namespace Garnet\App\Model;
+    class Interlock extends Model {
+        protected static $primary_key = "i_id";
+        protected static $table = "interlocks";
+        protected static $selectable = [
+            "i_id",
+            "i_timeon",
+            "i_timeoff",
+            "i_ack",
+            "i_reasonid"
+        ];
+        public static function getReason($id) {
             $reason = "Unknown";
             switch ($id) {
                 case 1: $reason = "Interlock Hose Reel Front"; break;
@@ -22,33 +32,26 @@
             }
             return $reason;
         }
-        public function getData() {
-            include 'action/conn.php';
-            $query = "SELECT i.i_id, i.i_timeon, i.i_timeoff, u.u_name, i.i_reasonid FROM interlocks i, users u WHERE i.i_ack = u.u_id";
-    
-            $result = $conn->query($query);
-            if ($result->num_rows > 0) {
-                // output data of each row
-                $data = [];
-                while($row = $result->fetch_assoc()) {
-                    array_push($data, $row);
-                }
-            }
-            $conn->close();
-            return $data;
+        public function ack_user() {
+            $user = User::find($this->i_ack);
+            return $user;
         }
-        public function countReason($reasonid) {
-            include 'action/conn.php';
-            $query = "SELECT COUNT(i_id) FROM interlocks WHERE i_reasonid = ".$reasonid;
-            $result = $conn->query($query);
-            $data = $result->fetch_row();
-            $conn->close();
-            return $data[0];
+        public function disses() {
+            $interlock_disses = InterlockDis::select(["u_id"], [
+                ["i_id", "=", $this->i_id]
+            ]);
+            return $interlock_disses;
         }
-        public function getReasonStats() {
+        public static function countReason($reasonid) {
+            $interlocks = Interlock::select(["COUNT(i_id) as count"], [
+                ["i_reasonid", "=", $reasonid]
+            ]);
+            return $interlocks[0]->count;
+        }
+        public static function getReasonStats() {
             $data = [];
             for ($rid = 1; $rid <= 16; $rid++) {
-                array_push($data, $this->countReason($rid));
+                array_push($data, self::countReason($rid));
             }
             return $data;
         }
