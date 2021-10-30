@@ -26,7 +26,7 @@
                 <label for="username" class="fw-bold mt-4">User</label>
                 <input type="text" class="form-control" id="username" name="username">
                 <label for="password" class="fw-bold">Password</label>
-                <input type="text" class="form-control" id="password" name="password">
+                <input type="password" class="form-control" id="password" name="password">
                 <button type="submit" class="btn btn-dark mt-4">LOGIN</button>
             </form>
         </div>
