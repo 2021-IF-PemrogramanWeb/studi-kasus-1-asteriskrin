@@ -32,5 +32,6 @@ CREATE TABLE `interlocks_dis` (
         FOREIGN KEY (i_id) REFERENCES interlocks (i_id),
         FOREIGN KEY (u_id) REFERENCES users (u_id)
 );
+```
 
-Buka `seeder.php` untuk meng-insert data testing.
+Buka `seeder.php?password=1230654` untuk meng-insert data testing.
