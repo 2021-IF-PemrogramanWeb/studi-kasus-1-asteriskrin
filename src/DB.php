@@ -75,5 +75,21 @@
             }
             return $output;
         }
+
+        /*
+            Raw query.
+            This is useful for INSERT or UPDATE.
+            @param $sql Query string.
+        */
+        public function query($sql) {
+            return $this->conn->query($sql);
+        }
+
+        /*
+            Get last insert ID.
+        */
+        public function lastInsertID() {
+            return mysqli_insert_id($this->conn);
+        }
     }
 ?>

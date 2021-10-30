@@ -46,5 +46,36 @@
             $db->disconnect();
             return $instances;
         }
+
+        /*
+            Create data.
+            @param $data Array of data value (map)
+        */
+        public static function create($data) {
+            $key_last = array_key_last($data);
+            // Construct query
+            $query = "INSERT INTO ".static::$table." (";
+            foreach ($data as $key => $value) {
+                $query .= $key;
+                if ($key_last != $key) $query .= ", ";
+            }
+            $query .= ") VALUES (";
+            foreach ($data as $key => $value) {
+                $query .= $value;
+                if ($key_last != $key) $query .= ", ";
+            }
+            $query .= ")";
+            
+            $db = new DB();
+            $instance = NULL;
+            if ($db->query($query)) {
+                if (!is_null(static::$primary_key)) {
+                    $data[static::$primary_key] = $db->lastInsertID();
+                }
+                $instance = new static($data);
+            }
+            $db->disconnect();
+            return $instance;
+        }
     }
 ?>
