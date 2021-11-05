@@ -1,7 +1,7 @@
 <?php
     require_once 'src/Classes.php';
     use Garnet\App\Model\Interlock as Interlock;
-    use Garnet\App\Trait\BahasaDay as BahasaDay;
+    use Garnet\App\Traits\BahasaDay as BahasaDay;
 
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
