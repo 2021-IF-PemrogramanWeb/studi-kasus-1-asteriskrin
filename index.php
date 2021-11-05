@@ -1,6 +1,7 @@
 <?php
     require_once 'src/Classes.php';
     use Garnet\App\Model\Interlock as Interlock;
+    use Garnet\App\Trait\BahasaDay as BahasaDay;
 
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -61,8 +62,18 @@
                         <?php foreach ($interlocks as $interlock) { ?>
                         <tr>
                             <td><?php echo $interlock->i_id; ?></td>
-                            <td><?php echo $interlock->i_timeon; ?></td>
-                            <td><?php echo $interlock->i_timeoff; ?></td>
+                            <td>
+                                <?php 
+                                    $dayName = date('D', strtotime($interlock->i_timeon));
+                                    echo BahasaDay::getDayName($dayName).", ".date('d/m/y, h:i:s', strtotime($interlock->i_timeon)); 
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                    $dayName = date('D', strtotime($interlock->i_timeoff));
+                                    echo BahasaDay::getDayName($dayName).", ".date('d/m/y, h:i:s', strtotime($interlock->i_timeoff)); 
+                                ?>
+                            </td>
                             <td>
                                 <?php 
                                     $act = $interlock->ack_user();
