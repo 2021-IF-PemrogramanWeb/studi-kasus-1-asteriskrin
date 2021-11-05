@@ -1,5 +1,5 @@
 <?php
-    namespace Garnet\App\Trait;
+    namespace Garnet\App\Traits;
     trait BahasaDay {
         public static function getDayName($day) {
             $res = '';
