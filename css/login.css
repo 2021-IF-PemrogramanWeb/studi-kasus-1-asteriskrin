@@ -1,5 +1,7 @@
-body {
-    padding: 3em;
+@media (min-width: 600px) {
+    body {
+        padding: 3em;
+    }
 }
 .content {
     border: 0.1em solid black;

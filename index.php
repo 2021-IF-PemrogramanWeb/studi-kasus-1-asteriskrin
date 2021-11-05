@@ -34,71 +34,73 @@
         <div class="row mt-4">
             <div class="col-sm-12 col-md-3">
                 <div class="d-flex flex-column h-100">
-                    <div class="flex-grow-1 align-self-center">
-                        <div class="rounded bg-blue">&nbsp;</div>
-                        Mobil 1
-                        <div class="rounded bg-green">&nbsp;</div>
-                        Mobil 2
+                    <div class="d-flex flex-row flex-md-column flex-grow-1 align-self-center">
+                        <div class="rounded bg-blue" style="width:50px;">&nbsp;</div>
+                        <p class="m-0">Mobil 1</p>
+                        <div class="rounded bg-green" style="width:50px;">&nbsp;</div>
+                        <p class="m-0">Mobil 2</p>
                     </div>
-                    <div class="align-self-center d-flex flex-column justify-content-center gap-4">
+                    <div class="mt-4 align-self-center d-flex flex-row flex-md-column justify-content-center gap-4">
                         <a href="grafik.php" class="btn bg-yellow">Graph</a>
                         <a class="btn bg-blue-2">Export</a>
                         <a href="logout.php" class="btn bg-red">Logout</a>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-9">
-                <table class="table table-bordered border-dark">
-                    <thead>
-                        <tr style="background-color: rgb(168, 209, 141);">
-                            <th>No</th>
-                            <th>On</th>
-                            <th>Off</th>
-                            <th>Ack by</th>
-                            <th>Reason</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($interlocks as $interlock) { ?>
-                        <tr>
-                            <td><?php echo $interlock->i_id; ?></td>
-                            <td>
-                                <?php 
-                                    $dayName = date('D', strtotime($interlock->i_timeon));
-                                    echo BahasaDay::getDayName($dayName).", ".date('d/m/y, h:i:s', strtotime($interlock->i_timeon)); 
-                                ?>
-                            </td>
-                            <td>
-                                <?php 
-                                    $dayName = date('D', strtotime($interlock->i_timeoff));
-                                    echo BahasaDay::getDayName($dayName).", ".date('d/m/y, h:i:s', strtotime($interlock->i_timeoff)); 
-                                ?>
-                            </td>
-                            <td>
-                                <?php 
-                                    $act = $interlock->ack_user();
-                                    if ($act != NULL) echo "Act: ".$act->u_name."<br>";
-                                ?>
-                                <?php
-                                    $interlock_disses = $interlock->disses();
-                                    if ($interlock_disses != NULL) {
-                                        echo "Dis: ";
-                                        $size = count($interlock_disses);
-                                        for ($i = 0; $i < $size - 1; $i++) {
-                                            echo $interlock_disses[$i]->user()->u_name;
-                                            echo ', ';
+            <div class="col-sm-12 col-md-9 mt-2">
+                <div class="table-responsive">
+                    <table class="table table-bordered border-dark">
+                        <thead>
+                            <tr style="background-color: rgb(168, 209, 141);">
+                                <th>No</th>
+                                <th>On</th>
+                                <th>Off</th>
+                                <th>Ack by</th>
+                                <th>Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($interlocks as $interlock) { ?>
+                            <tr>
+                                <td><?php echo $interlock->i_id; ?></td>
+                                <td>
+                                    <?php 
+                                        $dayName = date('D', strtotime($interlock->i_timeon));
+                                        echo BahasaDay::getDayName($dayName).", ".date('d/m/y, h:i:s', strtotime($interlock->i_timeon)); 
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php 
+                                        $dayName = date('D', strtotime($interlock->i_timeoff));
+                                        echo BahasaDay::getDayName($dayName).", ".date('d/m/y, h:i:s', strtotime($interlock->i_timeoff)); 
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php 
+                                        $act = $interlock->ack_user();
+                                        if ($act != NULL) echo "Act: ".$act->u_name."<br>";
+                                    ?>
+                                    <?php
+                                        $interlock_disses = $interlock->disses();
+                                        if ($interlock_disses != NULL) {
+                                            echo "Dis: ";
+                                            $size = count($interlock_disses);
+                                            for ($i = 0; $i < $size - 1; $i++) {
+                                                echo $interlock_disses[$i]->user()->u_name;
+                                                echo ', ';
+                                            }
+                                            echo $interlock_disses[$size-1]->user()->u_name;
                                         }
-                                        echo $interlock_disses[$size-1]->user()->u_name;
-                                    }
-                                ?>
-                            </td>
-                            <td>
-                                <?php echo $interlock->i_reasonid.'. '.Interlock::getReason($interlock->i_reasonid); ?>
-                            </td>
-                        </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php echo $interlock->i_reasonid.'. '.Interlock::getReason($interlock->i_reasonid); ?>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

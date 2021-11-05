@@ -24,7 +24,7 @@
 </head>
 <body>
     <div class="d-flex flex-column p-4 content">
-        <div class="d-flex">
+        <div class="d-flex flex-row">
             <img src="img/logo.png" class="flex-grow-0">
             <div class="flex-grow-1">
                 <button class="btn btn-dark float-end"><?= date('Y/m/d') ?></button>
