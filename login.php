@@ -24,9 +24,9 @@
             <img src="img/logo.png" class="img-fluid mb-4" width="90%">
             <form method="POST" action="login_action.php">
                 <label for="username" class="fw-bold mt-4">User</label>
-                <input type="text" class="form-control" id="username" name="username">
+                <input type="email" class="form-control" id="username" name="username" required>
                 <label for="password" class="fw-bold">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
+                <input type="password" class="form-control" id="password" name="password" required>
                 <button type="submit" class="btn btn-dark mt-4">LOGIN</button>
             </form>
         </div>
