@@ -5,6 +5,20 @@
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
+
+    $request_method = strtoupper($_SERVER['REQUEST_METHOD']);
+
+    if ($request_method !== 'POST') {
+        header($_SERVER['SERVER_PROTOCOL'] . ' 403 Method Not Allowed');
+        exit;
+    }
+
+    // CSRF Token
+    if (!isset($_POST['token']) || CSRF::getToken() !== filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) {
+        header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
+        exit;
+    }
+
     $response = [];
     // If logged in
     if (isset($_SESSION['user'])) {

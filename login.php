@@ -1,7 +1,12 @@
 <?php
+    require_once 'src/Classes.php';
+
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
+
+    CSRF::start();
+
     // If logged in
     if (isset($_SESSION['user'])) {
         echo 'Anda sudah login.<br><a href="index.php">Pergi ke halaman index</a>';
@@ -23,6 +28,7 @@
         <div class="d-flex flex-column align-items-center">
             <img src="img/logo_cat.jpg" class="img-fluid mb-4" style="max-height:150px;">
             <form method="POST" action="login_action.php" id="login_form">
+                <input type="hidden" name="token" id="token" value="<?= CSRF::getToken() ?>">
                 <label for="username" class="fw-bold mt-4">User</label>
                 <input type="email" class="form-control" id="username" name="username" required>
                 <label for="password" class="fw-bold">Password</label>
@@ -39,7 +45,8 @@
                 e.preventDefault();
                 $.post("login_action.php", {
                     username: $("#username").val(),
-                    password: $("#password").val()
+                    password: $("#password").val(),
+                    token: $("#token").val()
                 }).done(function (data) {
                     let response = JSON.parse(data);
                     switch (response.STATUS) {
