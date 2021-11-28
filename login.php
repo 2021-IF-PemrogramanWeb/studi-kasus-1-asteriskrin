@@ -42,7 +42,6 @@
                     password: $("#password").val()
                 }).done(function (data) {
                     let response = JSON.parse(data);
-                    console.log(response);
                     switch (response.STATUS) {
                         case "INVALID_USERNAME_OR_PASSWORD":
                             alert("Username dan Password tidak valid.");
