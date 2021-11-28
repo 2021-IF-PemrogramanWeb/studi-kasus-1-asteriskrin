@@ -21,7 +21,7 @@
 <body class="vh-100">
     <div class="d-flex justify-content-center align-items-center h-100 content">
         <div class="d-flex flex-column align-items-center">
-            <img src="img/logo.png" class="img-fluid mb-4" width="90%">
+            <img src="img/logo_cat.jpg" class="img-fluid mb-4" style="max-height:150px;">
             <form method="POST" action="login_action.php">
                 <label for="username" class="fw-bold mt-4">User</label>
                 <input type="email" class="form-control" id="username" name="username" required>
