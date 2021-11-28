@@ -22,7 +22,7 @@
     <div class="d-flex justify-content-center align-items-center h-100 content">
         <div class="d-flex flex-column align-items-center">
             <img src="img/logo_cat.jpg" class="img-fluid mb-4" style="max-height:150px;">
-            <form method="POST" action="login_action.php">
+            <form method="POST" action="login_action.php" id="login_form">
                 <label for="username" class="fw-bold mt-4">User</label>
                 <input type="email" class="form-control" id="username" name="username" required>
                 <label for="password" class="fw-bold">Password</label>
@@ -32,6 +32,38 @@
         </div>
     </div>
     <script src="bootstrap/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#login_form").submit(function(e) {
+                e.preventDefault();
+                $.post("login_action.php", {
+                    username: $("#username").val(),
+                    password: $("#password").val()
+                }).done(function (data) {
+                    let response = JSON.parse(data);
+                    console.log(response);
+                    switch (response.STATUS) {
+                        case "INVALID_USERNAME_OR_PASSWORD":
+                            alert("Username dan Password tidak valid.");
+                            break;
+                        case "INVALID_USERNAME":
+                            alert("Format username tidak sesuai.");
+                            break;
+                        case "LOGIN_FAILED":
+                            alert("Username atau password salah.");
+                            break;
+                        case "LOGIN_SUCCESSFUL":
+                            alert("Login berhasil.\nAnda akan dialihkan ke halaman dashboard sesaat lagi.");
+                            window.location.replace("index.php");
+                            break;
+                        default:
+                            alert("Username atau password tidak valid.");
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
 <?php } ?>

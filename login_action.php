@@ -5,9 +5,10 @@
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
+    $response = [];
     // If logged in
     if (isset($_SESSION['user'])) {
-        echo 'Anda sudah login.<br><a href="index.php">Pergi ke halaman index</a>';
+        $response['STATUS'] = 'ALREADY_LOGGED_IN';
     }
     else {
         if (isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['username']) && !empty($_POST['password'])) {
@@ -19,12 +20,14 @@
         
                 $user = User::login($username, $password);
                 if ($user) {
-                    echo 'Login berhasil<br><a href="index.php">Pergi ke halaman index</a>';
+                    $response['STATUS'] = 'LOGIN_SUCCESSFUL';
                 }
-                else echo 'Login gagal<br><a href="login.php">Kembali ke halaman login</a>';
+                else $response['STATUS'] = 'LOGIN_FAILED';
             }
-            else echo 'Username tidak valid.';
+            else $response['STATUS'] = 'INVALID_USERNAME';
         }
-        else echo 'Username dan password kosong.';
+        else $response['STATUS'] = 'INVALID_USERNAME_OR_PASSWORD';
     }
+
+    echo json_encode($response);
 ?>
