@@ -21,3 +21,24 @@
 .bg-red {
     background-color: #fd0100;
 }
+#login_warn_msg {
+    background-color: #f2eea7;
+    color: black;
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+}
+#close_warn_msg {
+    position: absolute;
+    margin-top: -20px;
+    margin-left: 2px;
+    min-width: 25px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #d4aaf2;
+    color: black;
+}
+#close_warn_msg:hover {
+    background-color: #754d91;
+    transition: background-color 1s;
+    cursor: pointer;
+}

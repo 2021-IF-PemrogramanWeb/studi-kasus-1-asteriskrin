@@ -35,6 +35,9 @@
         <div class="d-flex flex-column align-items-center">
             <img src="img/logo_cat.jpg" class="img-fluid mb-4" style="max-height:150px;">
             <form method="POST" action="login_action.php" id="login_form">
+                <?php if (isset($_GET['s']) && $_GET['s'] == '1') { ?>
+                <p id="login_warn_msg">Anda harus login terlebih dahulu. <span id="close_warn_msg">X</span></p>
+                <?php } ?>
                 <input type="hidden" name="token" id="token" value="<?= CSRF::getToken() ?>">
                 <label for="username" class="fw-bold mt-4">User</label>
                 <input type="email" class="form-control" id="username" name="username" required>
@@ -74,6 +77,9 @@
                             alert("Username atau password tidak valid.");
                     }
                 });
+            });
+            $("#close_warn_msg").click(function() {
+                $("#login_warn_msg").fadeOut();
             });
         });
     </script>
