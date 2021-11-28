@@ -2,6 +2,13 @@
     require_once 'src/Classes.php';
     use Garnet\App\Model\Interlock as Interlock;
 
+    $request_method = strtoupper($_SERVER['REQUEST_METHOD']);
+
+    if ($request_method !== 'GET') {
+        header($_SERVER['SERVER_PROTOCOL'] . ' 403 Method Not Allowed');
+        exit;
+    }
+
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
