@@ -14,10 +14,10 @@
     }
     // If not logged in
     if (!isset($_SESSION['user'])) {
-        echo 'Anda belum login.<br><a href="login.php">Pergi ke halaman login</a>';
+        header("Location: login.php");
+        exit;
     }
-    else {
-        $interlock_stats = Interlock::getReasonStats();
+    $interlock_stats = Interlock::getReasonStats();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +27,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/login.css">
-    <title>Page 1</title>
+    <title>Grafik</title>
 </head>
 <body>
     <div class="d-flex flex-column p-4 content">
@@ -82,4 +82,3 @@
     </script>
 </body>
 </html>
-<?php } ?>
